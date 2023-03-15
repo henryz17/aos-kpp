@@ -1,15 +1,17 @@
-#alpine base
-FROM --platform=linux/arm64 alpine:latest
+#download ubuntu image
+FROM --platform=linux/arm64 ubuntu:20.04
 
 #LABELS
 LABEL org.opencontainers.image.authors="support@atmos.ucla.edu"
-LABEL version="1.2"
-LABEL description="Kinetic Pre Processor 2.2.3 on Alpine"
+LABEL version="1.1"
+LABEL description="Kinetic Pre Processor 2.2.3 on Ubuntu 20.04"
 
 #Update Ubuntu and disable prompts
 #ARG DEBIAN_FRONTEND=noninteractive
 RUN apt update
-RUN apt add dos2unix vim gfortran make gcc sed bison flex python3
+RUN apt upgrade -y
+RUN apt install -y dos2unix vim gfortran make gcc sed bison flex python
+RUN apt clean
 
 #Define Env variables
 ENV KPP_HOME=/usr/local/kpp-2.2.3
